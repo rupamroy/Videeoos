@@ -1,0 +1,21 @@
+{
+  "name": "angularboilerplate",
+  "version": "0.1.0",
+  "homepage": "https://github.com/rupamroy/Angular-Boilerplate",
+  "authors": [
+    "Rupam Roy <roopamroy@gmail.com>"
+  ],
+  "description": "A place to test angular immediately",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.3.15",
+    "angular": "~1.3.15"
+  }
+}

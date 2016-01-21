@@ -4,7 +4,6 @@
     app=express();
     serveStatic=require('serve-static');
 
-
     config=require('./config');
     app.use(serveStatic(config.bowerPath));
     app.use(serveStatic(config.rootPath + "/client"));

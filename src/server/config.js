@@ -8,7 +8,6 @@
     module.exports = {
         rootPath: rootPath,
         bowerPath: bowerPath
-
     };
 
 }).call(this);

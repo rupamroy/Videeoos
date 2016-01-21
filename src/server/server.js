@@ -20,7 +20,7 @@
     app.get('/upload', function (req, res) {
         // Local Path
         var filename = 'hello-world.txt';
-        var localPath = __dirname + '/../client/upload_files/' + filename;
+        var localPath = __dirname + '/../client/media/' + filename;
 
         // S3 Key path
         var keyName = '1/' + filename;

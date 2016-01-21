@@ -2,13 +2,38 @@
 <html>
 <head>
     <title></title>
-    <script src="/angular/angular.js"></script>
-    <script src="/angular-route/angular-route.js"></script>
+    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha256-Ucf/ylcKTNevYP6l7VNUhGLDRZPQs1+LsbbxuzMxUJM= sha512-FW2XqnqMwERwg0LplG7D64h8zA1BsxvxrDseWpHLq8Dg8kOBmLs19XNa9oAajN/ToJRRklfDJ398sOU+7LcjZA==" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
 </head>
-<body data-ng-app="myApp">
+<body data-ng-app="videeooApp">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/home"><img class="logo" src="images/Logo.png" alt="Disney"/></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Upload</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <ng-view></ng-view>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Copyright@2016.</p>
+      </div>
+    </footer>
     <script src="js/app.js"></script>
     <script src="js/app.config.js"></script>
-    <script src='js/myCtrl.js'></script>
+    <script src='js/features/home/home.controller.js'></script>
 </body>
 </html>

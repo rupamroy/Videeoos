@@ -30,8 +30,11 @@
         var localPath = __dirname + '/../client/media/hello-world.txt';
 		var rawExtension = path.extname(localPath).split('.');
 		var extension = rawExtension[rawExtension.length - 1];
+        var fileName = path.basename(localPath);
+        var awsFilePath = (Math.ceil(Math.random() * (1000000000 - 100000) + 100000)) + '/' + fileName;
+
 		if(config.allowedFileExtension.indexOf(extension) > -1) {
-			utils.s3Upload(localPath, function(err, result){
+			utils.s3Upload(localPath, awsFilePath, function(err, result){
 				if(err) {
 					console.log(err);
 					res.status(404).send(err);

@@ -7,7 +7,7 @@
     fs = require('fs');
     serveStatic = require('serve-static');
     config = require('./config');
-    utils = require('./utils');
+    utils = require('./aws-services');
 
 
     app.use(serveStatic(config.bowerPath));
@@ -27,7 +27,7 @@
         // Code goes here...
 
         // Upload the file to S3
-        var localPath = __dirname + '/../client/media/hello-world.txt';
+        var localPath = __dirname + '/../client/media/Sample1.mp4';
         var rawExtension = path.extname(localPath).split('.');
         var extension = rawExtension[rawExtension.length - 1];
         var fileName = path.basename(localPath);
@@ -41,7 +41,14 @@
                 }
 
                 // Start the Transcoding service
-                res.status(200).send(result);
+                utils.transcode(awsFilePath,fileName,function(err, data){
+                    if(err)
+                    {
+                        console.log(err);
+                    }
+                    res.status(200).send(data);
+                })
+                //res.status(200).send(result);
             });
         } else {
             res.status(404).send('File type not allowed');

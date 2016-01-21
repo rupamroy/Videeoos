@@ -1,7 +1,7 @@
 {
-    "name": "angularboilerplace",
+    "name": "Videeoos",
     "version": "0.1.0",
-    "description": "For trying angular tests",
+    "description": "This is a video uploading tool with AWS",
     "main": "server.js",
     "dependencies": {
         "aws-sdk": "^2.2.31",

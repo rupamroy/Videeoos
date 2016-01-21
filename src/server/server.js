@@ -15,7 +15,19 @@
 
     // Configure the bucket Name
     app.get('/upload', function (req, res) {
-        // Local Path
+		
+		// Insert into DB
+		// Code goes here...
+		
+
+		// Get the file from request object
+		// Code goes here...
+		// https://github.com/chintan-patel/music-player-SPA/blob/master/server/routes/Controllers/upload.js#L26-L37
+
+		// Update the DB with the file name
+		// Code goes here...
+
+        // Upload the file to S3 
         var localPath = __dirname + '/../client/media/hello-world.txt';
 		var rawExtension = path.extname(localPath).split('.');
 		var extension = rawExtension[rawExtension.length - 1];
@@ -25,6 +37,8 @@
 					console.log(err);
 					res.status(404).send(err);
 				}
+
+				// Start the Transcoding service
 				res.status(200).send(result);
 			});
 		} else {

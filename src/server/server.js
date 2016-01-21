@@ -15,10 +15,9 @@
 
     // Configure the bucket Name
     app.get('/upload', function (req, res) {
-		
+
 		// Insert into DB
 		// Code goes here...
-		
 
 		// Get the file from request object
 		// Code goes here...
@@ -27,7 +26,7 @@
 		// Update the DB with the file name
 		// Code goes here...
 
-        // Upload the file to S3 
+        // Upload the file to S3
         var localPath = __dirname + '/../client/media/hello-world.txt';
 		var rawExtension = path.extname(localPath).split('.');
 		var extension = rawExtension[rawExtension.length - 1];
@@ -44,6 +43,22 @@
 		} else {
 			res.status(404).send('File type not allowed');
 		}
+    });
+
+    app.post('/notification', function(req, res){
+       var body = req.body;
+       if(body.state === 'PROGRESSING') {
+           console.log(body);
+           res.status(200);
+       }
+       else if(body.state === 'COMPLETED') {
+           console.log(body);
+           res.status(200);
+       }
+       else {
+           console.log(body);
+           res.status(200);
+       }
     });
 
     app.listen(process.env.PORT || 3000);

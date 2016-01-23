@@ -12,6 +12,7 @@
 
     app.use(serveStatic(config.bowerPath));
     app.use(serveStatic(config.rootPath + "/client"));
+    app.use('/player/',serveStatic(config.rootPath + "/client/js/player/"));
 
     // Configure the bucket Name
     app.get('/upload', function (req, res) {

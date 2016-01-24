@@ -5,5 +5,6 @@
     ErrorController.$inject=['$scope'];
 
     function ErrorController($scope){
+
     }
 })();

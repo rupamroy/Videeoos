@@ -1,3 +1,3 @@
 (function(){
-     angular.module('videeooApp',['ngRoute', 'ngFileUpload']);
+     angular.module('videeooApp',['ngRoute', 'ngFileUpload', 'socket-io']);
 })();

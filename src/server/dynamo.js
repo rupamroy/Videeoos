@@ -1,9 +1,9 @@
 var AWS = require("aws-sdk");
+var config = require('./config');
 
-AWS.config.update({
-    region: "us-east-1",
-    endpoint: "https://dynamodb.us-east-1.amazonaws.com"
-});
+AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: config.awsProfile     });
+AWS.config.region = config.aws.region;
+AWS.config.endpoint = config.aws.dynamo.endpoint;
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -20,7 +20,7 @@ function insertVideo(data) {
             "VideoName": data.file.originalname,
             "Title": data.info.title,
             "Keywords": data.info.keywords,
-            "Status": "Uploaded to local server",
+            "UploadStatus": "Uploaded to local server",
             "Created": (new Date()).toString(),
             "Modified": (new Date()).toString()
         }
@@ -41,9 +41,9 @@ function changeStatus(videoId, status) {
         Key: {
             "VideoId": "No One You Know",
         },
-        UpdateExpression: "SET Status = :status",
+        UpdateExpression: "SET UploadStatus = :status",
         ExpressionAttributeValues: {
-            ":label": status
+            ":status": status
         },
         ReturnValues: "ALL_NEW"
     };

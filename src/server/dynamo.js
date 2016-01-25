@@ -35,7 +35,7 @@ function changeStatus(videoId, status) {
     var params = {
         TableName: "Videos",
         Key: {
-            "VideoId": "No One You Know",
+            "VideoId": videoId 
         },
         UpdateExpression: "SET UploadStatus = :status",
         ExpressionAttributeValues: {

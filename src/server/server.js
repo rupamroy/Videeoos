@@ -73,8 +73,6 @@
             }
 
             // Upload the file to S3
-            //TODO: Chintan needs to update this
-
             var localPath = __dirname + '/uploads/' + videoId;
             var awsFilePath = path.basename(localPath); 
             var keyName = path.basename(localPath);
@@ -94,6 +92,7 @@
 							 res.status(404).send(err);
 						 }
 						 //TODO: Socket message
+						 db.changeStatus(videoId, 'Transcoding Started');
 						 res.status(200).send('success');
 					 });
 				 //TODO: Socket message

@@ -1,11 +1,7 @@
 var AWS = require("aws-sdk");
 var config = require('./config');
 
-AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: config.awsProfile     });
-AWS.config.region = config.aws.region;
-AWS.config.endpoint = config.aws.dynamo.endpoint;
-
-var docClient = new AWS.DynamoDB.DocumentClient();
+var dynamoDBClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = {
     insertVideo: insertVideo,
@@ -26,11 +22,11 @@ function insertVideo(data) {
         }
     };
 
-    docClient.put(params, function (err, data) {
+    dynamoDBClient.put(params, function (err, result) {
         if (err) {
-            console.error("Unable to add Video info", ".Error JSON: ", JSON.stringify(err, null, 2));
+            console.error("Unable to add Video info", "Error JSON: ", JSON.stringify(err, null, 2));
         } else {
-            console.log("PutItem Succeeded:", "Sample.mp4")
+            console.log("PutItem Succeeded:", data.file.filename)
         }
     });
 }
@@ -48,10 +44,10 @@ function changeStatus(videoId, status) {
         ReturnValues: "ALL_NEW"
     };
 
-    docClient.update(params, function (err, data) {
+    dynamoDBClient.update(params, function (err, data) {
         if (err)
             console.log(JSON.stringify(err, null, 2));
         else
-            console.log(JSON.stringify("Video ID " + videoId + " , status changed to " + status));
+            console.log(JSON.stringify("Video ID: " + videoId + " , status changed to " + status));
     });
 }

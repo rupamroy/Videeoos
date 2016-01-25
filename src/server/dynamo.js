@@ -10,7 +10,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 module.exports = {
     insertVideo: insertVideo,
     changeStatus: changeStatus
-}
+};
 
 function insertVideo(data) {
     var params = {
@@ -20,7 +20,9 @@ function insertVideo(data) {
             "VideoName": data.file.originalname,
             "Title": data.info.title,
             "Keywords": data.info.keywords,
-            "Status": "Uploaded to local server"
+            "Status": "Uploaded to local server",
+            "Created": (new Date()).toString(),
+            "Modified": (new Date()).toString()
         }
     };
 

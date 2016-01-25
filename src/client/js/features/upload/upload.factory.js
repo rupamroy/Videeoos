@@ -7,7 +7,7 @@
     function uploadFactory(Upload) {
         return {
             upload: upload
-        }
+        };
 
         function upload(fd, cb, errCb) {
             return Upload.upload(fd);

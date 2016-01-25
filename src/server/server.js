@@ -1,21 +1,25 @@
 (function () {
-    var app, fs, config, serveStatic, express, utils, path;
+    var app, http, fs, config, serveStatic, express, utils, path;
     var bodyParser, cookieParser, multer, upload;
     var db;
+    var notify;
     express = require('express');
     path = require('path');
     app = express();
-
+    http = require('http').Server(app);
     fs = require('fs');
     serveStatic = require('serve-static');
+
     config = require('./config');
+    notify = require('./socket');
+    notify.init(http);
+
     app.use(serveStatic(config.bowerPath));
     app.use(serveStatic(config.rootPath + "/client"));
 
     db = require('./dynamo');
     utils = require('./aws-services');
     multer = require('multer');
-
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -70,35 +74,35 @@
             // Upload the file to S3
             //TODO: Chintan needs to update this
 
-        /*    var localPath = __dirname + './uploads/' + videoId;
-            var fileName = path.basename(localPath);
-            var awsFilePath = (Math.ceil(Math.random() * (1000000000 - 100000) + 100000)) + '/' + fileName;
+            /*    var localPath = __dirname + './uploads/' + videoId;
+             var fileName = path.basename(localPath);
+             var awsFilePath = (Math.ceil(Math.random() * (1000000000 - 100000) + 100000)) + '/' + fileName;
 
-            utils.s3Upload(localPath, awsFilePath, function (err, result) {
-                if (err) {
-                    console.log(err);
-                    //TODO: Socket Message
-                }
-                db.changeStatus(videoId, 'Uploaded to S3');
-                // Start the Transcoding service
-                utils.transcode(awsFilePath, fileName, function (err, data) {
-                    if (err) {
-                        console.log(err);
-                        //TODO: Socket message
-                    }
-                    //TODO: Socket message
-                })
-                //TODO: Socket message
-            });*/
+             utils.s3Upload(localPath, awsFilePath, function (err, result) {
+             if (err) {
+             console.log(err);
+             //TODO: Socket Message
+             }
+             db.changeStatus(videoId, 'Uploaded to S3');
+             // Start the Transcoding service
+             utils.transcode(awsFilePath, fileName, function (err, data) {
+             if (err) {
+             console.log(err);
+             //TODO: Socket message
+             }
+             //TODO: Socket message
+             })
+             //TODO: Socket message
+             });*/
         } else {
+            notify.error("Bad File Type. File Type not allowed.")
             res.status(404).send('File type not allowed');
         }
     });
 
-
-    app.listen(process.env.PORT || 3000);
-    console.log("Listening on http://localhost:" + (process.env.PORT || '3000'));
-
+    http.listen(process.env.PORT || 3000, function () {
+        console.log("Listening on http://localhost:" + (process.env.PORT || '3000'));
+    });
 }).call(this);
 
 

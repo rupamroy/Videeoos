@@ -46,7 +46,9 @@
     // Configure the bucket Name
     app.post('/api/upload', upload.fields([{name: 'file', maxCount: 1}]), function (req, res) {
         var videoId = req.files.file[0].filename; // VideoId in dynamo , it is also the file name in uploads
+		console.log(videoId);
         var originalName = req.files.file[0].originalname;
+		console.log(originalName);
 
         var rawExtension = path.extname(originalName).split('.');
         var extension = rawExtension[rawExtension.length - 1];
@@ -58,7 +60,7 @@
                     file: req.files.file[0],
                     info: req.body.info
                 });
-                res.send(200);
+                res.status(200).send('success');
             }
             catch (err) {
                 console.log(err);

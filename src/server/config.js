@@ -24,7 +24,10 @@
             },
             s3:{
                 bucketName: bucketName
-            }
+            },
+			dynamo: {
+				endpoint: "https://dynamodb.us-east-1.amazonaws.com"
+			}
         },
         allowedFileExtension: allowedFileExtension
     };

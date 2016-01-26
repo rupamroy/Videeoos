@@ -5,9 +5,9 @@
            <div class="search-area">
                <form class="form-inline" role="form">
                   <div class="form-group">
-                    <input type="text" class="form-control search-textbox" id="txt-search" placeholder="Search Videos">
+                    <input type="text" ng-model="term" class="form-control search-textbox" id="txt-search" placeholder="Search Videos">
                   </div>
-                    <button type="submit" class="btn btn-default">
+                    <button ng-click="search()" class="btn btn-default">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     </button>
                    <a href="#/search">Show All</a>

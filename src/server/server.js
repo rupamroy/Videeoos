@@ -4,6 +4,7 @@
     var db;
     var notify;
 	var AWS;
+    var search;
     express = require('express');
     path = require('path');
     app = express();
@@ -15,6 +16,8 @@
     config = require('./config');
     notify = require('./socket');
     notify.init(http);
+    search = require('./search');
+    search.init(app);
 
     app.use(serveStatic(config.bowerPath));
     app.use(serveStatic(config.rootPath + "/client"));

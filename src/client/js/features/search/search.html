@@ -1,0 +1,36 @@
+<div>
+   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+   <div class="col-lg-8 col-md-18 col-sm-8 col-xs-8">
+       <div class="row">
+           <div class="search-area">
+               <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <input type="text" ng-model="term" class="form-control search-textbox" id="txt-search" placeholder="Search Videos">
+                  </div>
+                    <button ng-click="search()" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                   <a href="#/search">Show All</a>
+                </form>
+           </div>
+       </div>
+
+       <div class="panel panel-info">
+          <div class="panel-heading">Uploaded Videos</div>
+          <div class="panel-body">
+                <div ng-repeat="row in videos" class="row">
+                  <div ng-repeat="item in row" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="thumbnail">
+                      <img alt="Image not available">
+                      <div class="caption">
+                        <h3>{{item.Title}}</h3>
+                        <p>Uploaded: {{item.Created | date: 'medium'}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+        </div>
+   </div>
+   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+</div>

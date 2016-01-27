@@ -5,7 +5,8 @@ var dynamoDBClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = {
     insertVideo: insertVideo,
-    changeStatus: changeStatus
+    changeStatus: changeStatus,
+    getVideos: getVideos
 };
 
 function insertVideo(data) {
@@ -35,7 +36,7 @@ function changeStatus(videoId, status) {
     var params = {
         TableName: "Videos",
         Key: {
-            "VideoId": videoId 
+            "VideoId": videoId
         },
         UpdateExpression: "SET UploadStatus = :status",
         ExpressionAttributeValues: {
@@ -49,5 +50,24 @@ function changeStatus(videoId, status) {
             console.log(JSON.stringify(err, null, 2));
         else
             console.log(JSON.stringify("Video ID: " + videoId + " , status changed to " + status));
+    });
+}
+
+function getVideos(term, cb) {
+    var params = {
+        TableName: "Videos",
+    };
+
+    if (term) {
+        params.FilterExpression = "contains(Title, :title)"
+        params.ExpressionAttributeValues = {
+            ":title": term
+        }
+    }
+    dynamoDBClient.scan(params, function(err, data) {
+        if (err)
+            throw err;
+        else
+            cb(data);
     });
 }

@@ -7,6 +7,7 @@ module.exports = {
     insertVideo: insertVideo,
     changeStatus: changeStatus,
     getVideos: getVideos,
+    getById: getById,
     update: update
 };
 
@@ -73,14 +74,35 @@ function getVideos(term, cb) {
     });
 }
 
-function update(params,cb) {
+function getById(videoId, cb) {
+    if (videoId) {
+        var params = {
+            TableName: 'Videos',
+            KeyConditionExpression: '#VideoId = :VideoId',
+            ExpressionAttributeNames: {
+                '#VideoId': 'VideoId'
+            },
+            ExpressionAttributeValues: {
+                ':VideoId': videoId
+            }
+        };
+        dynamoDBClient.query(params, function (err, data) {
+            if (err)
+                throw err;
+            else
+                cb(data);
+        });
+    }
+}
+
+function update(params, cb) {
     params.TableName = 'Videos';
 
     dynamoDBClient.update(params, function (err, data) {
         if (err) {
             console.log(JSON.stringify(err, null, 2));
         }
-        console.log('Updated the values with: ', params);
+        console.log('Updated the values');
         cb(null, params);
     });
 }

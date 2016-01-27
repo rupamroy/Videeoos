@@ -96,18 +96,18 @@
                     },
                     ReturnValues: 'ALL_NEW'
                 };
-                db.update(params);
-
-                // Start the Transcoding service
-                utils.transcode(awsFilePath, keyName, function (err, data) {
-                    if (err) {
+                db.update(params, function (result) {
+                    // Start the Transcoding service
+                    utils.transcode(awsFilePath, keyName, function (err, data) {
+                        if (err) {
+                            //TODO: Socket message
+                            console.log(err);
+                            res.status(404).send(err);
+                        }
                         //TODO: Socket message
-                        console.log(err);
-                        res.status(404).send(err);
-                    }
-                    //TODO: Socket message
-                    db.changeStatus(videoId, 'TRANSCODE_STARTED');
-                    res.status(200).send('success');
+                        db.changeStatus(videoId, 'TRANSCODE_STARTED');
+                        res.status(200).send('success');
+                    });
                 });
                 //TODO: Socket message
             });

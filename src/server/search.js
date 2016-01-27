@@ -10,5 +10,6 @@ function init(app) {
         dynamo.getVideos(term, function (result) {
             res.send(result);
         });
+        next();
     });
 }

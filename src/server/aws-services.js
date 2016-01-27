@@ -2,6 +2,7 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 var config = require('./config');
 var path = require('path');
+var db = require('./dynamo');
 
 var s3 = new AWS.S3();
 var elastictranscoder = new AWS.ElasticTranscoder();
@@ -21,37 +22,50 @@ module.exports = {
                         cb(err);
                     }
                     else {
-                        console.log("Successfully uploaded data to http://s3.amazonaws.com/" + config.aws.s3.bucketName + "/" + awsFilePath);
+                        console.log('Successfully uploaded data to http://s3.amazonaws.com/' + config.aws.s3.bucketName + '/' + awsFilePath);
                         cb(null, data);
                     }
                 });
             }
         });
     },
-    transcode: function(awsFilePath,fileName,cb) {
+    transcode: function (awsFilePath, fileName, cb) {
         var params = {
             PipelineId: config.aws.elastictranscoder.PipelineId,
-            Input : {
+            Input: {
                 Key: awsFilePath + '/' + fileName
             },
             Outputs: []
         };
 
-
-        for(var presetId in config.aws.elastictranscoder.PresetIds) {
-           params.Outputs.push({
+        var cdn = [];
+        for (var presetId in config.aws.elastictranscoder.PresetIds) {
+            params.Outputs.push({
                 Key: awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName,
-                PresetId : config.aws.elastictranscoder.PresetIds[presetId]
+                PresetId: config.aws.elastictranscoder.PresetIds[presetId]
             });
+            cdn.push(awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName);
         }
 
-        elastictranscoder.createJob(params, function(err, data){
-           if(err) {
-               cb(err);
-           }
-           else {
-               cb(null, data);
-           }
+
+        elastictranscoder.createJob(params, function (err, data) {
+            if (err) {
+                cb(err);
+            }
+            var params = {
+                Key: {
+                    'VideoId': fileName
+                },
+                UpdateExpression: 'SET UploadStatus = :status, CDNLocation = :location',
+                ExpressionAttributeValues: {
+                    ':status': 'CDN_UPDATED',
+                    ':location': cdn
+                },
+                ReturnValues: 'ALL_NEW'
+            };
+            db.update(params, function(err,response) {
+                cb(null, data);
+            });
         });
     }
 };

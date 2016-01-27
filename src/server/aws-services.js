@@ -41,10 +41,10 @@ module.exports = {
         var cdn = [];
         for (var presetId in config.aws.elastictranscoder.PresetIds) {
             params.Outputs.push({
-                Key: awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName,
+                Key: awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName + '.mp4',
                 PresetId: config.aws.elastictranscoder.PresetIds[presetId]
             });
-            cdn.push(awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName);
+            cdn.push(awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName + '.mp4');
         }
 
 

@@ -39,14 +39,15 @@ module.exports = {
         };
 
         var cdn = [];
+
         for (var presetId in config.aws.elastictranscoder.PresetIds) {
             params.Outputs.push({
                 Key: awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName + '.mp4',
-                PresetId: config.aws.elastictranscoder.PresetIds[presetId]
+                PresetId: config.aws.elastictranscoder.PresetIds[presetId],
+                ThumbnailPattern : awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName + '-{count}'
             });
             cdn.push(awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName + '.mp4');
         }
-
 
         elastictranscoder.createJob(params, function (err, data) {
             if (err) {
@@ -56,10 +57,11 @@ module.exports = {
                 Key: {
                     'VideoId': fileName
                 },
-                UpdateExpression: 'SET UploadStatus = :status, CDNLocation = :location',
+                UpdateExpression: 'SET UploadStatus = :status, CDNLocation = :location, ThumbLocation = :thumbLocation',
                 ExpressionAttributeValues: {
                     ':status': 'CDN_UPDATED',
-                    ':location': cdn
+                    ':location': cdn,
+                    ':thumbLocation' : awsFilePath + '/' + config.aws.elastictranscoder.PresetIds[presetId] + '/' + fileName + '-00001.png'
                 },
                 ReturnValues: 'ALL_NEW'
             };

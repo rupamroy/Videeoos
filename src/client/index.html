@@ -40,17 +40,17 @@
     <script src="js/app.js"></script>
     <script src="js/app.config.js"></script>
     <script src='js/features/home/home.controller.js'></script>
-	<script src="js/player/js/hdwplayer.js"></script>
+	<script src="js/vendor/player/js/hdwplayer.js"></script>
 	<script>
 		hdwplayer({ 
 			id        : 'player',
-			swf       : 'player/player.swf',
+			swf       : 'js/vendor/player/player.swf',
 			width     : '705',
 			height    : '400',
 			type      : 'rtmp',
 			streamer  : 'rtmp://siiblitjqj40p.cloudfront.net/cfx/st',
 			video     : '227048927/1351620000001-000010/Sample1.mp4',
-			autoStart : 'true'
+			autoStart : 'false'
 		});
 	</script>
 </body>

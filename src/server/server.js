@@ -55,7 +55,7 @@
     // Configure the bucket Name
     app.post('/api/upload', upload.fields([{name: 'file', maxCount: 1}]), function (req, res) {
 		// VideoId in dynamo , it is also the file name in uploads
-        var videoId = req.files.file[0].filename; 
+        var videoId = req.files.file[0].filename;
         var originalName = req.files.file[0].originalname;
 
         var rawExtension = path.extname(originalName).split('.');
@@ -77,7 +77,7 @@
 
             // Upload the file to S3
             var localPath = __dirname + '/uploads/' + videoId;
-            var awsFilePath = path.basename(localPath); 
+            var awsFilePath = path.basename(localPath);
             var keyName = path.basename(localPath);
 
              utils.s3Upload(localPath, awsFilePath + '/' + keyName, function (err, result) {

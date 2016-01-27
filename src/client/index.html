@@ -3,14 +3,11 @@
 <head>
     <title></title>
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="toastr/toastr.css" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha256-Ucf/ylcKTNevYP6l7VNUhGLDRZPQs1+LsbbxuzMxUJM= sha512-FW2XqnqMwERwg0LplG7D64h8zA1BsxvxrDseWpHLq8Dg8kOBmLs19XNa9oAajN/ToJRRklfDJ398sOU+7LcjZA==" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet"/>
-    <script src="jquery/dist/jquery.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.js"></script>
-    <script src="angular/angular.js"></script>
-    <script src="angular-route/angular-route.js"></script>
 </head>
-<body data-ng-app="videeooApp">
+<body data-ng-app="videeooApp" notify>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -19,39 +16,41 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Upload</a></li>
+                    <li class="active"><a href="#/home">Home <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#/upload">Upload</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-	<!--
     <ng-view></ng-view>
-	-->
-	<div id="player"></div>
 
-	<!--
     <footer class="footer">
       <div class="container">
         <p class="text-muted">Copyright@2016.</p>
       </div>
     </footer>
-	-->
+
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.js"></script>
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="ng-file-upload/ng-file-upload.js"></script>
+    <script type="text/javascript" src="toastr/toastr.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="ng-socket-io/ng-socket-io.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/app.config.js"></script>
+    <script src='js/features/upload/upload.factory.js'></script>
     <script src='js/features/home/home.controller.js'></script>
+
 	<script src="js/vendor/player/js/hdwplayer.js"></script>
-	<script>
-		hdwplayer({ 
-			id        : 'player',
-			swf       : 'js/vendor/player/player.swf',
-			width     : '705',
-			height    : '400',
-			type      : 'rtmp',
-			streamer  : 'rtmp://siiblitjqj40p.cloudfront.net/cfx/st',
-			video     : '227048927/1351620000001-000010/Sample1.mp4',
-			autoStart : 'false'
-		});
-	</script>
+    <script src='js/features/upload/upload.controller.js'></script>
+    <script src='js/features/upload-success/upload-success.controller.js'></script>
+    <script src='js/features/error/error.controller.js'></script>
+    <script src='js/features/notification/socket.directive.js'></script>
+    <script src='js/features/search/search.controller.js'></script>
+    <script src='js/features/search/search.factory.js'></script>
+
 </body>
 </html>

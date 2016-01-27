@@ -3,13 +3,6 @@ var AWS = require('aws-sdk');
 var config = require('./config');
 var path = require('path');
 
-// Create S3 Client object
-AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: config.awsProfile });
-AWS.config.region = config.aws.region;
-AWS.config.apiVersions = {
-  elastictranscoder: '2012-09-25'
-};
-
 var s3 = new AWS.S3();
 var elastictranscoder = new AWS.ElasticTranscoder();
 
@@ -36,8 +29,6 @@ module.exports = {
         });
     },
     transcode: function(awsFilePath,fileName,cb) {
-        var awsFilePath = path.dirname(awsFilePath);
-        console.log(awsFilePath);
         var params = {
             PipelineId: config.aws.elastictranscoder.PipelineId,
             Input : {
@@ -54,15 +45,13 @@ module.exports = {
             });
         }
 
-        console.log(params);
         elastictranscoder.createJob(params, function(err, data){
            if(err) {
                cb(err);
            }
            else {
-               console.log(data);
                cb(null, data);
            }
         });
     }
-}
+};

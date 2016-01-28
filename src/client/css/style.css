@@ -5,9 +5,10 @@
     top: -15px;
 }
 
-.video{
-    height: 60vh;
-    width: 80vw;
+.thumbnail-image-large {
+    width: 80%;
+    margin-left: 10%;
+    height:400px!important;
 }
 
 .search-area{
@@ -24,3 +25,9 @@
 div .jumbotron{
     padding-left: 5vw;
 }
+
+.thumbnail-image {
+    height: 20vh!important;
+    width: 90%;
+}
+

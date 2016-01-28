@@ -2,9 +2,9 @@
     angular.module('videeooApp')
         .factory('searchService', searchFactory);
 
-    searchFactory.$inject = ['$http', 'Upload'];
+    searchFactory.$inject = ['$http'];
 
-    function searchFactory($http, Upload) {
+    function searchFactory($http) {
         return {
             query: query
         };

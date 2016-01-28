@@ -7,6 +7,7 @@ module.exports = {
     insertVideo: insertVideo,
     changeStatus: changeStatus,
     getVideos: getVideos,
+    getRecent: getRecent,
     getById: getById,
     update: update
 };
@@ -73,6 +74,23 @@ function getVideos(term, cb) {
             cb(data);
     });
 }
+
+function getRecent(cb) {
+    var params = {
+        TableName: 'Videos',
+        IndexName: "MostRecent",
+        ScanIndexForward: false,
+        Limit: 5
+    };
+
+    dynamoDBClient.scan(params, function (err, data) {
+        if (err)
+            throw err;
+        else
+            cb(data);
+    });
+}
+
 
 function getById(videoId, cb) {
     if (videoId) {

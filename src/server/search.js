@@ -11,9 +11,16 @@ function init(app) {
             res.send(result);
         });
     });
+
     app.get('/api/video/:videoId', function (req, res, next) {
         var term = req.params.videoId;
         dynamo.getById(term, function (result) {
+            res.send(result);
+        });
+    });
+
+    app.get('/api/homeVideos', function (req, res, next) {
+        dynamo.getRecent(function (result) {
             res.send(result);
         });
     });

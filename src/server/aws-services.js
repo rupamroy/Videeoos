@@ -35,7 +35,10 @@ module.exports = {
             Input: {
                 Key: awsFilePath + '/' + fileName
             },
-            Outputs: []
+            Outputs: [],
+	    UserMetadata: {
+		VideoId: fileName
+	    }
         };
 
         var cdn = [];

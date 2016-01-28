@@ -2,17 +2,16 @@
     angular.module('videeooApp')
         .controller('videoController', VideoController);
 
-    VideoController.$inject = ['$scope', '$routeParams', 'videoService'];
+    VideoController.$inject = ['$scope', '$routeParams', 'videoService', '$location'];
 
-    function VideoController($scope, $routeParams, videoService) {
+    function VideoController($scope, $routeParams, videoService, $location) {
         var term = $routeParams.videoId;
 
         if (term) {
             videoService.get(term)
                 .then(function (result) {
-                    $scope.item = result;
+                    $scope.item = result.Items[0];
                     if (result.Count) {
-                        console.log(result.Items[0].CDNLocation[0]);
                         hdwplayer({
                             id: 'player',
                             swf: 'js/vendor/player/player.swf',
@@ -29,6 +28,9 @@
                     console.log(err);
                 })
 
+        }
+	$scope.search = function(){
+            $location.path('/search').search({term: $scope.term});
         }
     }
 })();

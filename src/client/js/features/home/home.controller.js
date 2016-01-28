@@ -1,22 +1,16 @@
-(function(){
-     angular.module('videeooApp')
-         .controller('home', HomeController);
+(function () {
+    angular.module('videeooApp')
+        .controller('home', HomeController);
 
-     HomeController.$inject=['$scope', '$location'];
+    HomeController.$inject = ['$scope', '$location', 'homeService'];
 
-     function HomeController($scope, $location){
-        $scope.search = function(){
+    function HomeController($scope, $location, homeService) {
+        $scope.search = function () {
             $location.path('/search').search({term: $scope.term});
-        }
-        hdwplayer({
-			id        : 'player',
-			swf       : 'js/vendor/player/player.swf',
-			width     : '100%',
-			height    : '400',
-			type      : 'rtmp',
-			streamer  : 'rtmp://siiblitjqj40p.cloudfront.net/cfx/st',
-			video     : '227048927/1351620000001-000010/Sample1.mp4',
-			autoStart : 'false'
-		});
-     }
+        };
+
+        homeService.query().then(function (res) {
+            $scope.videos = res.data.Items;
+        });
+    }
 })();

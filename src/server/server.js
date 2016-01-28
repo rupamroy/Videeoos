@@ -1,10 +1,12 @@
 (function () {
     var app, http, fs, config, serveStatic, express, utils, path;
     var bodyParser, cookieParser, multer, upload;
+    var SNSClient;
     var db;
     var notify;
     var AWS;
     var search;
+    SNSClient = require('aws-snsclient');
     express = require('express');
     path = require('path');
     app = express();
@@ -35,20 +37,31 @@
         }
     });
     var upload = multer({ storage: storage });
+ 
+    app.post('/notification', function(req,res) {
+        return client(req,res);
+    });
 
-    app.post('/notification', function (req, res) {
-        var body = req.body;
-        if (body.state === 'PROGRESSING') {
-            console.log(body);
-            res.status(200);
+    var client = SNSClient(function(err, message){
+	if(err) {
+	    console.log(err);
+	}
+	console.log(message.Message);
+	var Message = JSON.parse(message.Message);
+	var state = Message.state;
+	console.log(state);
+
+        if (state=== 'PROGRESSING') {
+	    notify.info(state);
         }
-        else if (body.state === 'COMPLETED') {
-            console.log(body);
-            res.status(200);
+        else if (state=== 'ERROR') {
+	    notify.error(state);
         }
-        else {
-            console.log(body);
-            res.status(200);
+        else if (state=== 'WARNING') {
+	    notify.warn(state);
+        }
+        else { 
+	    notify.info(state);
         }
     });
 

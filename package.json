@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "aws-sdk": "^2.2.32",
+    "aws-snsclient": "^0.2.0",
     "express": "~4.12.3",
     "multer": "^1.1.0",
     "serve-static": "~1.9.2",

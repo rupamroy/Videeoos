@@ -15,8 +15,27 @@
             </div>
         </div>
         <div class="row">
+            <table class="table table-striped">
+		<tr>
+			<td>Title</td>
+			<td>{{item.Title}}</td>
+		</tr>	
+		<tr>
+			<td>File Name</td>
+			<td>{{item.VideoName}}</td>
+		</tr>	
+		<tr>
+			<td>Created on</td>
+			<td>{{item.Created | date: 'medium' }}</td>
+		</tr>	
+		<tr>
+			<td>Modified on</td>
+			<td>{{item.Modified | date: 'medium' }}</td>
+		</tr>	
+	    </table>
+        </div>
+        <div class="row">
             <div id="player"></div>
         </div>
     </div>
-    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
 </div>

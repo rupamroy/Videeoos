@@ -38,18 +38,15 @@
     });
     var upload = multer({ storage: storage });
  
-    app.post('/notification', function(req,res) {
-        return client(req,res);
-    });
-
     var client = SNSClient(function(err, message){
 	if(err) {
 	    console.log(err);
 	}
-	console.log(message.Message);
 	var Message = JSON.parse(message.Message);
+	console.log(Message);
 	var state = Message.state;
-	console.log(state);
+	var videoId = Message.userMetadata.VideoId;
+	console.log(videoId);
 
         if (state=== 'PROGRESSING') {
 	    notify.info(state);
@@ -63,7 +60,25 @@
         else { 
 	    notify.info(state);
         }
+	var params = {
+	    Key: {
+		'VideoId': videoId
+	    },
+	    UpdateExpression: 'SET UploadStatus = :status',
+	    ExpressionAttributeValues: {
+		':status': 'TRANSCODE_' + state
+	    },
+	    ReturnValues: 'ALL_NEW'
+	};
+	db.update(params, function (result) {
+		console.log(result);
+	});
     });
+    
+    app.post('/notification', function(req,res) {
+        return client(req,res);
+    });
+
 
     // Configure the bucket Name
     app.post('/api/upload', upload.fields([{ name: 'file', maxCount: 1 }]), function (req, res) {

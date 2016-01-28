@@ -5,7 +5,8 @@
             <div class="search-area">
                 <form class="form-inline" role="form">
                     <div class="form-group">
-                        <input type="text" ng-model="term" class="form-control search-textbox" id="txt-search" placeholder="Search Videos">
+                        <input type="text" ng-model="term" class="form-control search-textbox" id="txt-search"
+                               placeholder="Search Videos">
                     </div>
                     <button ng-click="search()" class="btn btn-default">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -15,7 +16,40 @@
             </div>
         </div>
         <div class="row">
-            <div id="player"></div>
+            <div class="panel panel-info">
+                  <div class="panel-heading">Recent Videos</div>
+                  <div class="panel-body">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                               <li ng-repeat="video in videos"
+                                   data-target="#myCarousel" data-slide-to="{$index}"
+                                   ng-class="{active: $index===0}"></li>
+                            </ol>
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                               <div ng-repeat="video in videos" ng-class="{active: $index===0}" class="item">
+                                   <img class="thumbnail-image-large"
+                                        ng-src="//d1w9ixm9n8g3f0.cloudfront.net/{{video.ThumbLocation}}"
+                                        alt="Image not Found" controls/>
+                               </div>
+                            </div>
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+                    </div>
+                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+                  </div>
+            </div>
         </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>

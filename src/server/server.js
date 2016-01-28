@@ -43,22 +43,21 @@
 	    console.log(err);
 	}
 	var Message = JSON.parse(message.Message);
-	console.log(Message);
 	var state = Message.state;
 	var videoId = Message.userMetadata.VideoId;
-	console.log(videoId);
+	var fileName = Message.userMetadata.VideoId;
 
         if (state=== 'PROGRESSING') {
-	    notify.info(state);
+	    notify.info('Video :' + state);
         }
         else if (state=== 'ERROR') {
-	    notify.error(state);
+	    notify.info('Video :' + state);
         }
         else if (state=== 'WARNING') {
-	    notify.warn(state);
+	    notify.info('Video :' + state);
         }
         else { 
-	    notify.info(state);
+	    notify.info('Video :' + state);
         }
 	var params = {
 	    Key: {
@@ -70,9 +69,7 @@
 	    },
 	    ReturnValues: 'ALL_NEW'
 	};
-	db.update(params, function (result) {
-		console.log(result);
-	});
+	db.update(params, function (result) {});
     });
     
     app.post('/notification', function(req,res) {

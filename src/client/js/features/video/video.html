@@ -1,0 +1,22 @@
+<div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+        <div class="row">
+            <div class="search-area">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <input type="text" ng-model="term" class="form-control search-textbox" id="txt-search" placeholder="Search Videos">
+                    </div>
+                    <button ng-click="search()" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                    <a href="#/search">Show All</a>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div id="player"></div>
+        </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+</div>

@@ -10,6 +10,11 @@ function init(app) {
         dynamo.getVideos(term, function (result) {
             res.send(result);
         });
-        next();
+    });
+    app.get('/api/video/:videoId', function (req, res, next) {
+        var term = req.params.videoId;
+        dynamo.getById(term, function (result) {
+            res.send(result);
+        });
     });
 }

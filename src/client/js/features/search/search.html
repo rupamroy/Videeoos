@@ -21,9 +21,9 @@
                 <div ng-repeat="row in videos" class="row">
                   <div ng-repeat="item in row" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="thumbnail">
-                      <img alt="Image not available">
+                      <img alt="Image not available" src="//d1w9ixm9n8g3f0.cloudfront.net/{{item.ThumbLocation}}">
                       <div class="caption">
-                        <h3>{{item.Title}}</h3>
+                        <h3><a ng-href="/#/video/{{item.VideoId}}">{{item.Title}}</a></h3>
                         <p>Uploaded: {{item.Created | date: 'medium'}}</p>
                       </div>
                     </div>

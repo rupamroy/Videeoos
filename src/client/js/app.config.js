@@ -21,6 +21,10 @@
                  templateUrl: 'js/features/upload-success/upload-success.html',
                  controller: 'uploadSuccess'
              })
+             .when('/video/:videoId',{
+                 templateUrl:'js/features/video/video.html',
+                 controller: 'videoController'
+             })
              .when('/search',{
                  templateUrl:'js/features/search/search.html',
                  controller: 'search'

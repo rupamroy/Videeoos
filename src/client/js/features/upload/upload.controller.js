@@ -12,6 +12,7 @@
             try {
                 if ($scope.videoFile) {
                     $scope.validationError = null;
+                    $scope.loading = true;
                     uploadService.upload({
                         url: '/api/upload', //node.js route
                         data: {
@@ -22,15 +23,18 @@
                             }
                         }
                     }).then(function (resp) {
+                        $scope.loading = false;
                         $location.path('/upload-success');
                     }, function (resp) {
+                        $scope.loading = false;
                         $timeout(function(){
                             $scope.validationError = resp.data;
                             $scope.$apply();
                         });
                     }, function (evt) {
                         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                        console.log(Math.random() + "-" +  progressPercentage);
+                        $scope.progress = progressPercentage;
                     });
                 }
             }

@@ -6,8 +6,8 @@
      function Config($routeProvider){
          $routeProvider
              .when('/home',{
-                 templateUrl:'js/features/home/home.html',
-                 controller: 'home'
+                 templateUrl:'js/features/search/search.html',
+                 controller: 'search'
              })
              .when('/upload',{
                  templateUrl: 'js/features/upload/upload.html',
@@ -29,6 +29,6 @@
                  templateUrl:'js/features/search/search.html',
                  controller: 'search'
              })
-             .otherwise('/home');
+             .otherwise('/search');
      }
 })();

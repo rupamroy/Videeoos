@@ -8,10 +8,10 @@
 .thumbnail-image-large {
     width: 80%;
     margin-left: 10%;
-    height:400px!important;
+    height: 400px !important;
 }
 
-.search-area{
+.search-area {
     align-items: center;
     text-align: center;
     margin-bottom: 10vh;
@@ -19,15 +19,36 @@
 }
 
 .search-textbox {
-    width: 45vh!important;
+    width: 45vh !important;
 }
 
-div .jumbotron{
+div .jumbotron {
     padding-left: 5vw;
 }
 
 .thumbnail-image {
-    height: 20vh!important;
-    width: 90%;
+    height: 20vh !important;
+    width: 20vw;
+}
+
+.play-button {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    height:50px;
+    width: 50px;
+}
+
+div > .thumbnail {
+    max-width: 20vw;
+    position: relative;
+}
+
+.loading {
+    width: 65px;
+    height:65px;
+    position:relative;
+    left:20vw;
+    top: -8vh;
 }
 
